@@ -38,9 +38,6 @@ void readFile(std::fstream& file){
     std::vector<std::string> text;
     unsigned short lineCount;
 
-    /*while(std::cin >> word){
-        text.push_back(word);
-    }*/
     while(std::getline(file, line)){
         text.push_back(line);
     }
