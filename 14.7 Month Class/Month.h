@@ -20,6 +20,7 @@ class Month
     friend std::ostream& operator<<(std::ostream& strm, const Month& mnth);
     friend std::istream& operator>>(std::istream& strm, Month& mnth);
 
+    void operator=(const Month& mnth);
     Month operator++();    // prefix
     Month operator++(int); // postfix
     Month operator--();    // prefix

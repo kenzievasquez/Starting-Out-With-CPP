@@ -113,6 +113,11 @@ std::istream& operator>>(std::istream& strm, Month& mnth)
   return strm;
 }
 
+void Month::operator=(const Month& mnth)
+{
+  this->name = mnth.name;
+  this->monthNumber = mnth.monthNumber;
+}
 // Prefix and postfix overloaded ++ operator functions that increment monthNumber
 // and set name to the name of next month. If monthNumber is set to 12 when these
 // functions execute, they should set monthNumber to 1 and name to “January.”
