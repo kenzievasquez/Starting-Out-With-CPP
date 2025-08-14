@@ -1,59 +1,95 @@
-/*  12.1 File Head Program pg.705
-    Write a program that asks the user for the name of a file. The program should display
-    the first 10 lines of the file on the screen (the “head” of the file). If the file has fewer
-    than 10 lines, the entire file should be displayed, with a message indicating the entire
-    file has been displayed.
-*/
-#include <fstream>   // input/output file stream
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
+#include <sstream>
+#include <cctype>
 
-void readFile(std::fstream& file);
-void showState(std::fstream& file);
+void readInFromFile(std::vector<std::string>& fileLines, std::fstream& fin) {
+    std::string line;
+    while (std::getline(fin, line))
+        fileLines.push_back(line);
+}
 
-int main(){
-    std::fstream file;
-    std::string filename;
-    std::cout << "Enter the name of the file: ";
-    std::getline(std::cin, filename);
-    filename+=".txt";
+std::string cleanWord(const std::string& word) {
+    if(word.empty())
+        return "";
+
+    size_t start = 0;
+    size_t end = word.size();
+
+    while(start < end && std::ispunct(static_cast<unsigned char>(word[start])) && 
+            word[start] != '\'' && word[start] != '-') 
+            start++;
+
+     while (end > start && std::ispunct(static_cast<unsigned char>(word[end - 1])) &&
+            word[end - 1] != '\'' && word[end - 1] != '-')
+            end--;
+
+    std::string cleaned = word.substr(start, end - start);
+
+    for (char& c : cleaned)
+        c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
     
-    file.open(filename, std::ios::in);
-    if(file){
-        std::cout<<"Opening "<<filename<<"..\n\n";
-        //showState(file);
-        readFile(file);
-        file.close();
-    } else {
-        std::cerr << "File opened unsuccessfully." << std::endl;
+    std::string matchable;
+     for (char c : cleaned)
+     {
+        if (c != '\'' && c != '-')
+            matchable += c;
+     }
+
+     return matchable;
+}
+
+int countOccurrencesAndPrintLines(const std::vector<std::string>& fileLines, const std::string& searchWord) {
+    int count = 0;
+    int lineNumber = 1;
+
+    std::string searchLower = cleanWord(searchWord);
+
+    for (const auto& line : fileLines) {
+
+        std::istringstream iss(line);
+        std::string word;
+        bool foundInLine = false;
+
+        while (iss >> word) {
+            if (cleanWord(word) == searchLower) {
+                count++;
+                foundInLine = true;
+            }
+        }
+
+        if(foundInLine)
+            std::cout << "#: " << lineNumber << " " << line << "\n";
+
+        lineNumber++;
     }
+    return count;
+}
+
+int main() {
+    std::vector<std::string> fileLines;
     
+    std::fstream file("Sly_Fox.txt", std::ios::in);
+
+    if (!file.is_open()) {
+        std::cerr << "Error opening file!\n";
+        return 1;
+    }
+
+    readInFromFile(fileLines, file);
+    file.close();
+
+    std::string searchWord;
+    std::cout << "Enter the word to search for: ";
+    std::getline(std::cin, searchWord);
+
+    int occurrences = countOccurrencesAndPrintLines(fileLines, searchWord);
+
+    std::cout << "The word '" << searchWord << "' appears " << occurrences << " time(s) in the file.\n";
+
+    std::cin.ignore();
     return 0;
 }
 
-void readFile(std::fstream& file){
-    std::string word, 
-                line;
-    std::vector<std::string> text;
-    unsigned short lineCount;
-
-    while(std::getline(file, line)){
-        text.push_back(line);
-    }
-
-    lineCount= (text.size() < lineCount) ? 10 : text.size();
-    if(lineCount==10) std::cout<<"Showing first 10 lines of the file.\n\n";
-    for(int i=0; i < lineCount; i++){
-        std::cout << text[i] << "\n";
-    }
-}
-
-void showState(std::fstream& file){
-    std::cout << "File Status:\n";
-    std::cout << "  eof bit: " << file.eof() << "\n";
-    std::cout << "  fail bit: " << file.fail() << "\n";
-    std::cout << "  bad bit: " << file.bad() << "\n";
-    std::cout << "  good bit: " << file.good() << "\n\n";
-    file.clear(); // Clear any bad bits
-}
