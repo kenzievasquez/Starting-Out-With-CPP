@@ -9,49 +9,94 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <cctype>
 
-void readFile(std::string inputFileName);
-void writeFile(std::string outputFileName);
+
+std::vector<std::string> processFile(std::string inputFileName);
+void writeFile(std::string outputFileName, std::vector<std::string> sentences);
+
 
 int main(int argc, char const *argv[]){
     std::string inputFileName, 
                 outputFileName;
-    std::fstream inputFile,
-                 outputFile;
+    std::vector<std::string> sentences;
 
     std::cout << "Enter the input file name: ";
     std::getline(std::cin, inputFileName);
-
-    std::cout << "Enter the output file name: ";
-    std::getline(std::cin, outputFileName);
     
-    readFile(inputFileName+".txt");
+    sentences= processFile(inputFileName+".txt");
+    writeFile("revised.txt", sentences);
 
     return 0;
 }
 
-void readFile(std::string inputFileName){
-    std::fstream inputFile(inputFileName, std::ios::in);
 
-    if(){
+std::vector<std::string> processFile(std::string inputFileName){  // the Quick Brown Fox Jumped Over The Lazy Brown Dog.
+    std::fstream inputFile(inputFileName, std::ios::in);          // firstLetter = false
+                                                                  // i = 52
+
+    if(inputFile){
+        bool firstLetter = false;
         std::vector<std::string> sentences;
         std::string words,
                     line;
 
-        while(inputFile>>words){
-            std::cout<< words << "\n";
-        }
-
-        while(std::getline(inputFile, line)){
-            for(int i=0; i < line.length(); i++){
-                line[i] = tolower(line[i]);
+        // lowercase every character in the file
+        while (std::getline(inputFile, line)){
+            for(int i=0; i < line.size(); i++){
+                if (isalpha(line[i])) line[i] = std::tolower(line[i]);
             }
-
             sentences.push_back(line);
         }
+
+        for(int i=0; i < sentences.size(); i++){
+            for(int j=i; j < sentences.size() - i; j++){
+                if (sentences[i][j] == '.'){  // Check for sentence-ending punctuation
+                    firstLetter = true;  // Next character should be uppercase
+                    //break;
+                }
+                
+                if (firstLetter && std::isalpha(sentences[i][j])) {
+                    sentences[i][j] = std::toupper(sentences[i][j]);  // Convert the first letter of the sentence to uppercase
+                    firstLetter = false;  // Reset for the next sentence
+                    //break;
+                }
+            }
+        }
+
+        inputFile.close();
+        return sentences;
     }
 }
 
-void writeFile(std::string outputFileName){
+
+void writeFile(std::string outputFileName, std::vector<std::string> sentences){
     std::fstream outputFile(outputFileName, std::ios::out);
+
+    if(outputFile){
+        for(int i=0; i < sentences.size(); i++){
+            outputFile << sentences[i] << std::endl;
+        }
+        
+        outputFile.close();
+    }
 }
+
+/*
+bool capitalizeNext = true;
+for(const std::string& line : lines) {
+    for(int i = 0; i < lines.size(); i++) {
+        char& ch = line[i];
+        ch = std::tolower(static_cast<unsigned char>(ch)); 
+
+        if(capitalizeNext && std::isalpha(static_cast<unsigned char>(ch))) {
+            ch = std::toupper(static_cast<unsigned char>(ch)); 
+            capitalizeNext = false;
+        }
+
+        if(line[i] == '.') {
+            capitalizeNext = true;
+        }
+    }
+}
+*/
