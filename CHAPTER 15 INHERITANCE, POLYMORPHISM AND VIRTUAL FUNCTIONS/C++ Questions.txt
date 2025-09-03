@@ -56,4 +56,9 @@ ___and what can access a 'protected' member?
 A class access specifier refers to the 3 keywords (public, protected or private) used when a class inherits from another. 
 It controls how the base class members appear in the derived class.
 
+//////////////////// 15.6 POLYMORPHISM & VIRTUAL FUNCTIONS ////////////////////
+___What is polymorphism?
+poly  - many
+morph - change, or form
 
+Polymorphism is the ability (in programming) to present the same interface for differing underlying forms (data types).
