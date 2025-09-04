@@ -9,7 +9,7 @@ int main(){
     float cntyTaxPerc = 4;
     float stateTax = subtotal * (stateTaxPerc/100);
     float cntyTax = subtotal * (cntyTaxPerc/100);
-    float total = subtotal + stateTax + cntyTax;
+    float total = subtotal - stateTax - cntyTax;
 
     std::cout << std::fixed; // prints digits in decimal
     std::cout << "Subtotal: $" << std::setprecision(2) << subtotal << std::endl;
