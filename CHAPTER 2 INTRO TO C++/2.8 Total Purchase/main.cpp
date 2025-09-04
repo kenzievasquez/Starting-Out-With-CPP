@@ -20,9 +20,9 @@ int main(){
     std::cout << "item3:    $" << std::right << std::setw(5) << std::setprecision(2) << item3 << "\n";
     std::cout << "item4:    $" << std::right << std::setw(5) << std::setprecision(2) << item4 << "\n";
     std::cout << "item5:    $" << std::right << std::setw(5) << std::setprecision(2) << item5 << "\n";
-    std::cout << "Subtotal: $" << std::right << std::setw(5) << std::right << std::setprecision(2) << subtotal << "\n";
+    std::cout << "Subtotal: $" << std::right << std::setw(5) << std::setprecision(2) << subtotal << "\n";
     std::cout << "\nTaxes: (" << tax*100 << "%) - $" << std::setprecision(2) << salesTax << "\n";
-    std::cout << "TOTAL:    $" << std::right << std::setw(5) << std::right << std::setprecision(2) << total << "\n";
+    std::cout << "TOTAL:    $" << std::right << std::setw(5) << std::setprecision(2) << total << "\n";
 
     return 0;
 }
