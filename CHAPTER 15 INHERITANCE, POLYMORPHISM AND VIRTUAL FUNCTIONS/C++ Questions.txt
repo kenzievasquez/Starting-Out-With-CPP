@@ -62,3 +62,19 @@ poly  - many
 morph - change, or form
 
 Polymorphism is the ability (in programming) to present the same interface for differing underlying forms (data types).
+
+Checkpoint (pg.949)
+___15.9 Explain the difference between overloading a function and redefining a function.
+(pg.940) In C++, the difference between overriding and redefining bass class
+functions is that 
+OVERRIDDEN FUNCTIONS ARE DYNAMICALLY BOUND and
+REDEFINED FUNCTIONS ARE STATICALLY BOUND.
+
+___15.10 Explain the difference between static binding and dynamic binding.
+STATIC BINDING is the process of matching a function call with a function at compile time.
+DYNAMIC BINDING is when C++ determines which function to call at runtime,
+depending on the type of object responsible for the call.
+
+___15.11 Are virtual functions statically bound or dynamically bound?
+Virtual functions are dynamically bound.
+A virtual function is a member function that is dynamically bound to function calls.
