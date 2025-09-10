@@ -18,6 +18,7 @@ protected:
 
 public:
     Trust_Account(std::string name = def_name,  double balance = def_balance, double int_rate = def_int_rate);
+    ~Trust_Account();
     
     // Deposits of $5000.00 or more will receive $50 bonus
     bool deposit(double amount) override final;

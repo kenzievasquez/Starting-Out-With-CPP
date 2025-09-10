@@ -13,4 +13,3 @@ set(SOURCE_FILES
 )
 
 add_executable(AccountChallenge ${SOURCE_FILES})
-What is that
