@@ -6,13 +6,13 @@ BankAccount::BankAccount(float bal,float intRate)
 BankAccount::~BankAccount(){}
 
 void BankAccount::deposit(float deposit){
-    std::cout<<"Balance before deposit: $"<<this->getBalance()<<"\n";
+    std::cout<<"Balance before $"<<deposit<<" deposit: $"<<this->getBalance()<<"\n";
     this->balance+=deposit;
     ++numDepositsInMonth;
     this->display();
 }
 void BankAccount::withdraw(float withdrawal){
-    std::cout<<"Balance before withdrawal: $"<<this->getBalance()<<"\n";
+    std::cout<<"Balance before $"<<withdrawal<<" withdrawal: $"<<this->getBalance()<<"\n";
     this->balance-=withdrawal;
     ++numWithdrawalsInMonth;
     this->display();

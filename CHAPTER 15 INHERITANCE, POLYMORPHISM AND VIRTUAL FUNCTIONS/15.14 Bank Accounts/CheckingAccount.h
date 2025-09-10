@@ -8,9 +8,8 @@ public:
     CheckingAccount(float,float);
     ~CheckingAccount();
 
-    void withdraw(float) override;
-    void monthlyProc() override;
-    void display() const override;
+    void withdraw(float) override final;
+    void monthlyProc() override final;
 };
 
 #endif

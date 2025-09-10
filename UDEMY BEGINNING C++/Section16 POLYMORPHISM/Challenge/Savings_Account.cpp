@@ -1,4 +1,5 @@
 #include "Savings_Account.h"
+#include <iomanip>
 
 Savings_Account::Savings_Account(std::string name, double balance, double int_rate)
     : Account {name, balance}, int_rate{int_rate} {
@@ -13,8 +14,16 @@ bool Savings_Account::deposit(double amount) {
     return Account::deposit(amount);
 }
 
+bool Savings_Account::withdraw(double withdrawal) {
+    return Account::withdraw(withdrawal);
+}
+void Savings_Account::print(std::ostream &os) const {
+    os << std::fixed << std::setprecision(2) << "[Savings_Account: " << this->name << ": $" << this->balance << ", " << this->int_rate << "]";
+    //return os;
+}
+
 std::ostream &operator<<(std::ostream &os, const Savings_Account &account) {
-    os << "[Savings_Account: " << account.name << ": " << account.balance << ", " << account.int_rate << "]";
+    account.print(os);
     return os;
 }
 

@@ -12,8 +12,7 @@ void SavingsAccount::deposit(float deposit) {
     if(deposit>0){
         BankAccount::deposit(deposit);
         this->checkBalance();
-    }
-    this->display();
+    } else this->display();
 }
 void SavingsAccount::withdraw(float withdrawal) {
     if(this->status==true){
@@ -21,7 +20,6 @@ void SavingsAccount::withdraw(float withdrawal) {
         //this->monthlyProc();
         BankAccount::withdraw(withdrawal);
         this->checkBalance();
-        this->display();
     } else { 
         std::cout<<"You're account is inactive.\nYour account will be active "
                  <<"again when the balance reaches $25.\n";

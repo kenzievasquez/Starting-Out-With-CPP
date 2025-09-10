@@ -1,4 +1,5 @@
 #include "Trust_Account.h"
+#include <iomanip>
 
 Trust_Account::Trust_Account(std::string name, double balance, double int_rate)
     : Savings_Account {name, balance, int_rate}, num_withdrawals {0}  {
@@ -22,8 +23,12 @@ bool Trust_Account::withdraw(double amount) {
     }
 }
 
+void Trust_Account::print(std::ostream &os) const {
+    os << std::fixed << std::setprecision(2) << "[Trust Account: " << this->name << ": $" << this->balance << ", " << this->int_rate 
+         << "%, withdrawals: " << this->num_withdrawals <<  "]";
+}
+
 std::ostream &operator<<(std::ostream &os, const Trust_Account &account) {
-    os << "[Trust Account: " << account.name << ": " << account.balance << ", " << account.int_rate 
-        << "%, withdrawals: " << account.num_withdrawals <<  "]";
+    account.print(os);
     return os;
 }
