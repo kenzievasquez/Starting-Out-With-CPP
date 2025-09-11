@@ -12,9 +12,6 @@
 using namespace std; 
 
 int main() {
-    std::cout.precision(2);
-    std::cout << std::fixed;
-   
     // Accounts
     vector<Account *> accounts;
     accounts.push_back(new Savings_Account {} );

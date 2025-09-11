@@ -4,7 +4,7 @@
 #include <string>
 #include "Account.h"
 
-class Checking_Account: public Account {
+class Checking_Account final: public Account {
     private:
     static constexpr const char *def_name = "Unnamed Checking Account";
     static constexpr double def_balance = 0.0;
